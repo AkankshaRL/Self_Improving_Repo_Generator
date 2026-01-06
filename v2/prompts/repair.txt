@@ -1,0 +1,55 @@
+You are an expert debugger specializing in runtime error prevention. Fix the errors in the following code.
+
+File: {file_path}
+Original Code:
+```python
+{original_code}
+```
+
+Errors Found:
+{error_message}
+
+Your task:
+1. Identify the root cause of each error
+2. Fix the code to resolve ALL errors
+3. Add proper error handling to prevent runtime failures
+4. Ensure defensive programming practices
+
+CRITICAL - Add Error Handling For:
+- JSON parsing: Always use try/except with JSONDecodeError
+- Dictionary access: Use .get() method or validate keys exist first
+- API calls: Wrap in try/except with specific exception types
+- File operations: Use context managers (with statements)
+- Type conversions: Validate data types before conversion
+- None values: Check for None before accessing attributes
+- Empty lists/dicts: Validate before indexing
+
+Example Patterns to Use:
+
+# JSON Parsing
+try:
+    data = json.loads(response_text)
+except json.JSONDecodeError as e:
+    print(f"JSON error: {{e}}")
+    data = {{}}
+
+# Dictionary Access
+value = data.get('key', 'default_value')
+# OR
+if 'key' in data:
+    value = data['key']
+
+# API Calls
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+except requests.exceptions.RequestException as e:
+    print(f"Request failed: {{e}}")
+    return None
+
+# Type Validation
+if isinstance(value, dict) and 'key' in value:
+    result = value['key']
+
+Return ONLY the corrected code wrapped in ```python code blocks.
+Do not include explanations or comments about what you changed.
